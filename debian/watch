@@ -1,0 +1,2 @@
+version=4
+https://gemwatch.debian.net/httpclient .*/httpclient-(.*).tar.gz

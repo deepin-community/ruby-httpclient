@@ -1,0 +1,52 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.TH jsonclient 1 "2015-08-17"
+.SH NAME
+jsonclient \- Shell command for performing HTTP/JSON requests using Ruby jsonclient
+.SH SYNOPSIS
+.TP
+jsonclient <method> <uri> [params]
+.TP
+jsonclient
+.SH DESCRIPTION
+This program is an example/companion to the Ruby jsonclient module,
+but can be used as a complete standalone HTTP/JSON client.
+.PP
+If invoked with a method and an URI, the specified URI will be
+requested via the method given from its server. The allowed methods
+are \fBhead\fP, \fBget\fP, \fBpost\fP, \fBput\fP, \fBdelete\fP,
+\fBoptions\fP, \fBpropfind\fP, \fBproppatch\fP and
+\fBtrace\fP.
+.PP
+Parameters can be specified as a third parameter and will be delivered
+accordingly (i.e. appended to the URI after a \fB?\fP sign if the
+method is \fBget\fP, but as the posted body if the method is
+\fBpost\fP)
+.PP
+Please note that no checks are done as to whether the requested
+parameters make sense in the context they are specified, they are just
+sent as-is.
+.TP
+$ jsonclient get https://www.google.co.jp/ q=ruby
+.PP
+If no parameters are specified, an interactive Ruby (\fBirb\fP)
+session will be opened, binding an JSONClient object as 'self'. You
+can then call JSONClient instance methods like:
+.TP
+$ jsonclient
+>> get "https://www.google.co.jp/", :q => :ruby
+.PP
+JSONclient will print the `wiredump' of your request (that is, the
+commands sent to the server via HTTP), then the request's headers, and
+finally the result.
+.SH OPTIONS
+.SH AUTHORS
+Gunnar Wolf <gwolf@debian.org>, Hleb Valoshka <375gnu@gmail.com>
+.SH NOTES
+This manual page was written by Gunnar Wolf <gwolf@debian.org> and
+Hleb Valoshka <375gnu@gmail.com> for the Debian project, but can be freely used
+by others.
+
+This is free documentation; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 2 of the License, or (at your
+option) any later version.

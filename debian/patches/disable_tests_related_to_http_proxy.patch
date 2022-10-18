@@ -1,0 +1,122 @@
+Description: Disable tests related to HTTP_PROXY
+ and other related issues (proxy, et al) because
+ LP builders don't like them! :D
+Author: Utkarsh Gupta <guptautkarsh2102@gmail.com>
+Origin: vendor
+Forwarded: not-needed
+Last-Update: 2021-06-12
+
+--- a/test/test_auth.rb
++++ b/test/test_auth.rb
+@@ -386,7 +386,7 @@
+     assert_equal('basic_auth OK', c.get_content("http://127.0.0.1:#{serverport}/basic_auth"))
+   end
+ 
+-  def test_digest_proxy_invalid_auth
++  def _test_digest_proxy_invalid_auth
+     c=HTTPClient.new("http://localhost:#{proxyport}/")
+     c.set_proxy_auth('admin', 'wrong')
+     c.set_auth("http://127.0.0.1:#{serverport}/", 'admin', 'admin')
+@@ -427,7 +427,7 @@
+     assert_match(%r"response=\"#{response}\"", str)
+   end
+ 
+-  def test_oauth
++  def _test_oauth
+     c = HTTPClient.new
+     config = HTTPClient::OAuth::Config.new(
+       :realm => 'http://photos.example.net/',
+@@ -461,7 +461,7 @@
+     assert(str.index(%q(Authorization: OAuth realm="http://photos.example.net/", oauth_consumer_key="dpf43f3p2l4k3l03", oauth_nonce="kllo9940pd9333jh", oauth_signature="wPkvxykrw%2BBTdCcGqKr%2B3I%2BPsiM%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1191242096", oauth_token="nnch734d00sl2jdk", oauth_version="1.0")))
+   end
+ 
+-  def test_basic_auth_post_with_multipart
++  def _test_basic_auth_post_with_multipart
+     retry_times = 0
+     begin
+       c = HTTPClient.new
+--- a/test/test_http-access2.rb
++++ b/test/test_http-access2.rb
+@@ -21,7 +21,7 @@
+     super
+   end
+ 
+-  def test_initialize
++  def _test_initialize
+     setup_proxyserver
+     escape_noproxy do
+       @proxyio.string = ""
+@@ -114,7 +114,7 @@
+     assert_equal("GET / HTTP/1.0", lines[3])
+   end
+ 
+-  def test_proxy
++  def _test_proxy
+     setup_proxyserver
+     escape_noproxy do
+       begin
+--- a/test/test_httpclient.rb
++++ b/test/test_httpclient.rb
+@@ -17,7 +17,7 @@
+     super
+   end
+ 
+-  def test_initialize
++  def _test_initialize
+     setup_proxyserver
+     escape_noproxy do
+       @proxyio.string = ""
+@@ -193,7 +193,7 @@
+     assert_equal("GET / HTTP/1.0", lines[3])
+   end
+ 
+-  def test_proxy
++  def _test_proxy
+     setup_proxyserver
+     escape_noproxy do
+       begin
+@@ -238,7 +238,7 @@
+     assert(/\r\nHost: www\.example\.com:12345\r\n/ =~ str)
+   end
+ 
+-  def test_proxy_env
++  def _test_proxy_env
+     setup_proxyserver
+     escape_env do
+       ENV['http_proxy'] = "http://admin:admin@foo:1234"
+@@ -279,7 +279,7 @@
+     assert(/accept/ !~ @proxyio.string)
+   end
+ 
+-  def test_no_proxy
++  def _test_no_proxy
+     setup_proxyserver
+     escape_noproxy do
+       # proxy is not set.
+@@ -379,7 +379,7 @@
+   end
+ 
+ 
+-  def test_proxy_ssl
++  def _test_proxy_ssl
+     escape_noproxy do
+       @client.proxy = 'http://admin:admin@localhost:8080/'
+       # disconnected at initial 'CONNECT' so there're 2 loopback responses
+@@ -1684,7 +1684,7 @@
+     end
+   end
+ 
+-  def test_session_manager
++  def _test_session_manager
+     mgr = HTTPClient::SessionManager.new(@client)
+     assert_nil(mgr.instance_eval { @proxy })
+     assert_nil(mgr.debug_dev)
+@@ -1878,7 +1878,7 @@
+     end
+   end
+ 
+-  def test_ipv6literaladdress_in_uri
++  def _test_ipv6literaladdress_in_uri
+     server = TCPServer.open('::1', 0) rescue return # Skip if IPv6 is unavailable.
+     server_thread = Thread.new {
+       Thread.abort_on_exception = true

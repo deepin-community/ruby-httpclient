@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -exu
+
+httpclient get https://bugs.debian.org/

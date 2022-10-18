@@ -1,0 +1,33 @@
+From: Antonio Terceiro <terceiro@debian.org>
+Date: Wed, 6 Oct 2021 10:03:32 -0300
+Subject: Use system CA certificate store
+
+---
+ lib/httpclient/ssl_config.rb | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/lib/httpclient/ssl_config.rb b/lib/httpclient/ssl_config.rb
+index f6e7ce9..d4e48f2 100644
+--- a/lib/httpclient/ssl_config.rb
++++ b/lib/httpclient/ssl_config.rb
+@@ -249,7 +249,7 @@ class HTTPClient
+     # Loads default trust anchors.
+     # Calling this method resets all existing sessions.
+     def load_trust_ca
+-      load_cacerts(@cert_store)
++      set_default_paths
+       change_notify
+     end
+ 
+@@ -413,11 +413,6 @@ class HTTPClient
+       nil
+     end
+ 
+-    # Use 2048 bit certs trust anchor
+-    def load_cacerts(cert_store)
+-      file = File.join(File.dirname(__FILE__), 'cacert.pem')
+-      add_trust_ca_to_store(cert_store, file)
+-    end
+   end
+ 
+ 

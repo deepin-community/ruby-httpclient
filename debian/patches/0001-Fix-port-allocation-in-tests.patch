@@ -1,0 +1,105 @@
+From: Antonio Terceiro <terceiro@debian.org>
+Date: Mon, 17 Aug 2015 12:51:37 +0300
+Subject: Fix port allocation in tests
+
+ For some reason, when running the test suite under sbuild, several tests crash
+ with an error of `Errno::EADDRINUSE: Address already in use - listen(2)`. The
+ tests just work when building outside of sbuild.
+
+ Somehow, passing :Port => 0 seems to be making WEBrick allocate the same port
+ over and over. I couldn't reproduce this interactively.
+
+ This patch fixes the issue by assigning explict port numbers to servers and
+ proxy servers created in the test suite, and is most probably Debian-specific.
+---
+ test/helper.rb            | 2 +-
+ test/test_auth.rb         | 4 ++--
+ test/test_http-access2.rb | 2 +-
+ test/test_httpclient.rb   | 2 +-
+ test/test_ssl.rb          | 2 +-
+ 5 files changed, 6 insertions(+), 6 deletions(-)
+
+--- a/test/helper.rb
++++ b/test/helper.rb
+@@ -71,7 +71,7 @@
+     @proxyserver = WEBrick::HTTPProxyServer.new(
+       :BindAddress => "localhost",
+       :Logger => @proxylogger,
+-      :Port => 0,
++      :Port => 50001,
+       :AccessLog => []
+     )
+     @proxyport = @proxyserver.config[:Port]
+--- a/test/test_auth.rb
++++ b/test/test_auth.rb
+@@ -20,7 +20,7 @@
+     @server = WEBrick::HTTPServer.new(
+       :BindAddress => "localhost",
+       :Logger => @logger,
+-      :Port => 0,
++      :Port => 50000,
+       :AccessLog => [],
+       :DocumentRoot => File.dirname(File.expand_path(__FILE__))
+     )
+@@ -87,7 +87,7 @@
+       :ProxyAuthProc => @proxy_digest_auth.method(:authenticate).to_proc,
+       :BindAddress => "localhost",
+       :Logger => @proxylogger,
+-      :Port => 0,
++      :Port => 50001,
+       :AccessLog => []
+     )
+     @proxyport = @proxyserver.config[:Port]
+--- a/test/test_http-access2.rb
++++ b/test/test_http-access2.rb
+@@ -387,7 +387,7 @@
+     @server = WEBrick::HTTPServer.new(
+       :BindAddress => "localhost",
+       :Logger => @logger,
+-      :Port => 0,
++      :Port => 50000,
+       :AccessLog => [],
+       :DocumentRoot => File.dirname(File.expand_path(__FILE__))
+     )
+--- a/test/test_httpclient.rb
++++ b/test/test_httpclient.rb
+@@ -1938,7 +1938,7 @@
+     @server = WEBrick::HTTPServer.new(
+       :BindAddress => "localhost",
+       :Logger => @logger,
+-      :Port => 0,
++      :Port => 50000,
+       :AccessLog => [],
+       :DocumentRoot => File.dirname(File.expand_path(__FILE__))
+     )
+--- a/test/test_ssl.rb
++++ b/test/test_ssl.rb
+@@ -447,7 +447,7 @@
+     @server = WEBrick::HTTPServer.new(
+       :BindAddress => "localhost",
+       :Logger => logger,
+-      :Port => 0,
++      :Port => 50000,
+       :AccessLog => [],
+       :DocumentRoot => DIR,
+       :SSLEnable => true,
+@@ -478,7 +478,7 @@
+     @server = WEBrick::HTTPServer.new(
+       :BindAddress => "localhost",
+       :Logger => logger,
+-      :Port => 0,
++      :Port => 50001,
+       :AccessLog => [],
+       :DocumentRoot => DIR,
+       :SSLEnable => true,
+--- a/test/test_jsonclient.rb
++++ b/test/test_jsonclient.rb
+@@ -69,7 +69,7 @@
+     @server = WEBrick::HTTPServer.new(
+       :BindAddress => "localhost",
+       :Logger => @logger,
+-      :Port => 0,
++      :Port => 50000,
+       :AccessLog => [],
+       :DocumentRoot => File.dirname(File.expand_path(__FILE__))
+     )

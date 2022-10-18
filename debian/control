@@ -1,0 +1,45 @@
+Source: ruby-httpclient
+Section: ruby
+Priority: optional
+Maintainer: Debian Ruby Team <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
+Uploaders: Gunnar Wolf <gwolf@debian.org>
+Build-Depends: debhelper-compat (= 12),
+               gem2deb,
+	       ruby-webrick,
+               rake,
+               ruby-http-cookie,
+               ruby-rack
+Standards-Version: 4.5.0
+Vcs-Git: https://salsa.debian.org/ruby-team/ruby-httpclient.git
+Vcs-Browser: https://salsa.debian.org/ruby-team/ruby-httpclient
+Homepage: https://github.com/nahi/httpclient
+Testsuite: autopkgtest-pkg-ruby
+XS-Ruby-Versions: all
+
+Package: ruby-httpclient
+Architecture: all
+XB-Ruby-Versions: ${ruby:Versions}
+Depends: ruby,
+         ruby-http-cookie,
+         ca-certificates,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: HTTP client library for ruby
+ httpclient gives something like the functionality of
+ libwww-perl (LWP) in Ruby.
+ .
+ Features:
+    * methods like GET/HEAD/POST/* via HTTP/1.1.
+    * HTTPS(SSL), Cookies, proxy, authentication(Digest, NTLM, Basic), etc.
+    * asynchronous HTTP request, streaming HTTP request.
+    * by contrast with net/http in standard distribution;
+          o Cookies support
+          o MT-safe
+          o streaming POST (POST with File/IO)
+          o Digest auth
+          o Negotiate/NTLM auth for WWW-Authenticate (requires net/htlm module)
+          o NTLM auth for WWW-Authenticate/Proxy-Authenticate (requires
+            win32/sspi module)
+          o extensible with filter interface
+          o you don't have to care HTTP/1.1 persistent connection (httpclient
+            cares instead of you).

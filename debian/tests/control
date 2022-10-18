@@ -1,0 +1,2 @@
+Tests: ssl-smoke-test
+Restrictions: needs-internet, allow-stderr

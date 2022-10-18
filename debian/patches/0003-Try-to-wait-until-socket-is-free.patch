@@ -1,0 +1,135 @@
+From: Hleb Valoshka <375gnu@gmail.com>
+Date: Mon, 17 Aug 2015 15:45:46 +0300
+Subject: Try to wait until socket is free
+
+---
+ test/helper.rb            |  3 +++
+ test/test_auth.rb         | 38 ++++++++++++++++++++++++--------------
+ test/test_http-access2.rb |  3 +++
+ test/test_httpclient.rb   |  3 +++
+ test/test_ssl.rb          |  3 +++
+ 5 files changed, 36 insertions(+), 14 deletions(-)
+
+--- a/test/helper.rb
++++ b/test/helper.rb
+@@ -76,6 +76,9 @@
+     )
+     @proxyport = @proxyserver.config[:Port]
+     @proxyserver_thread = start_server_thread(@proxyserver)
++  rescue Errno::EADDRINUSE
++    sleep 1
++    retry
+   end
+ 
+   def teardown_client
+--- a/test/test_auth.rb
++++ b/test/test_auth.rb
+@@ -17,13 +17,18 @@
+   end
+ 
+   def setup_server
+-    @server = WEBrick::HTTPServer.new(
+-      :BindAddress => "localhost",
+-      :Logger => @logger,
+-      :Port => 50000,
+-      :AccessLog => [],
+-      :DocumentRoot => File.dirname(File.expand_path(__FILE__))
+-    )
++    begin
++      @server = WEBrick::HTTPServer.new(
++        :BindAddress => "localhost",
++        :Logger => @logger,
++        :Port => 50000,
++        :AccessLog => [],
++        :DocumentRoot => File.dirname(File.expand_path(__FILE__))
++      )
++    rescue Errno::EADDRINUSE
++      sleep 1
++      retry
++    end
+     @serverport = @server.config[:Port]
+     @server.mount(
+       '/basic_auth',
+@@ -83,13 +88,18 @@
+       :UserDB => htdigest_userdb
+     )
+ 
+-    @proxyserver = WEBrick::HTTPProxyServer.new(
+-      :ProxyAuthProc => @proxy_digest_auth.method(:authenticate).to_proc,
+-      :BindAddress => "localhost",
+-      :Logger => @proxylogger,
+-      :Port => 50001,
+-      :AccessLog => []
+-    )
++    begin
++      @proxyserver = WEBrick::HTTPProxyServer.new(
++        :ProxyAuthProc => @proxy_digest_auth.method(:authenticate).to_proc,
++        :BindAddress => "localhost",
++        :Logger => @proxylogger,
++        :Port => 50001,
++        :AccessLog => []
++      )
++    rescue Errno::EADDRINUSE
++      sleep 1
++      retry
++    end
+     @proxyport = @proxyserver.config[:Port]
+     @proxyserver_thread = start_server_thread(@proxyserver)
+   end
+--- a/test/test_http-access2.rb
++++ b/test/test_http-access2.rb
+@@ -400,6 +400,9 @@
+     end
+     @server.mount('/servlet', TestServlet.new(@server))
+     @server_thread = start_server_thread(@server)
++  rescue Errno::EADDRINUSE
++    sleep 1
++    retry
+   end
+ 
+   def escape_noproxy
+--- a/test/test_httpclient.rb
++++ b/test/test_httpclient.rb
+@@ -1955,6 +1955,9 @@
+     end
+     @server.mount('/servlet', TestServlet.new(@server))
+     @server_thread = start_server_thread(@server)
++  rescue Errno::EADDRINUSE
++    sleep 1
++    retry
+   end
+ 
+   def add_query_string(req)
+--- a/test/test_ssl.rb
++++ b/test/test_ssl.rb
+@@ -466,6 +466,9 @@
+       )
+     end
+     @server_thread = start_server_thread(@server)
++  rescue Errno::EADDRINUSE
++    sleep 1
++    retry
+   end
+ 
+   def setup_server_with_ssl_version(ssl_version)
+@@ -522,6 +525,9 @@
+       )
+     end
+     @server_thread = start_server_thread(@server)
++  rescue Errno::EADDRINUSE
++    sleep 1
++    retry
+   end
+ 
+   def do_hello(req, res)
+--- a/test/test_jsonclient.rb
++++ b/test/test_jsonclient.rb
+@@ -76,5 +76,8 @@
+     @serverport = @server.config[:Port]
+     @server.mount('/json', JSONServlet.new(@server))
+     @server_thread = start_server_thread(@server)
++  rescue Errno::EADDRINUSE
++    sleep 1
++    retry
+   end
+ end

@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+export GEM2DEB_TEST_RUNNER = --check-dependencies
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
+%:
+	dh $@ --buildsystem=ruby --with ruby
+
+
+override_dh_auto_install:
+	dh_auto_install
+	rm --verbose $(CURDIR)/debian/ruby-httpclient/usr/lib/ruby/vendor_ruby/httpclient/*.pem

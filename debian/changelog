@@ -1,0 +1,294 @@
+ruby-httpclient (2.8.3-5) UNRELEASED; urgency=medium
+
+  * update
+
+ -- Debian Ruby Team <pkg-ruby-extras-maintainers@lists.alioth.debian.org>  Thu, 21 Jul 2022 17:15:45 +0800
+
+ruby-httpclient (2.8.3-5) unstable; urgency=medium
+
+  * skip test.
+  * update version.
+
+ -- wangxiangyu <wangxiangyu@uniontech.com>  Thu, 21 Jul 2022 17:12:58 -0300
+
+ruby-httpclient (2.8.3-4) unstable; urgency=medium
+
+  * Team upload
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster
+
+  [ Antonio Terceiro ]
+  * Add simple autopkgtest to check a basic SSL connection
+  * Add patch to use the system certificate store (Closes: #995448)
+  * debian/rules: remove embedded CA certificate store
+  * Add dependency on ca-certificates
+  * Depends: drop `| ruby-interpreter`
+
+ -- Antonio Terceiro <terceiro@debian.org>  Wed, 06 Oct 2021 17:55:58 -0300
+
+ruby-httpclient (2.8.3-3) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Trim trailing whitespace.
+  * Use secure copyright file specification URI.
+  * debian/copyright: use spaces rather than tabs to start continuation
+    lines.
+  * Set debhelper-compat version in Build-Depends.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+  * Update standards version to 4.5.0, no changes needed.
+  * Remove MIA uploader Ryan Niebur <ryanryan52@gmail.com>.
+    (Closes: #856376)
+
+  [ Utkarsh Gupta ]
+  * Add salsa-ci.yml
+  * Add patch to disable tests related to HTTP_PROXY
+    and other related issues (proxy, et al) because
+    LP builders don't like them! :D
+    (Closes: #861456)
+
+ -- Utkarsh Gupta <utkarsh@debian.org>  Sat, 12 Jun 2021 18:19:45 +0530
+
+ruby-httpclient (2.8.3-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Antonio Terceiro ]
+  * Remove myself from Uploaders:
+
+  [ Lucas Kanashiro ]
+  * Skip ssl tests due the usage of some expired certs
+  * Update VCS links to point to salsa
+  * debian/watch: use gemwatch.debian.net
+  * Declare compliance with Debian Policy 4.3.0
+  * Bump debhelper compatibility level to 12
+
+ -- Lucas Kanashiro <lucas.kanashiro@collabora.com>  Wed, 20 Feb 2019 14:52:56 -0300
+
+ruby-httpclient (2.8.3-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Sruthi Chandran ]
+  * New upstream release
+  * Refresh patches
+
+  [ Pirate Praveen ]
+  * Disable failing test
+
+ -- Pirate Praveen <praveen@debian.org>  Mon, 31 Jul 2017 20:10:48 +0530
+
+ruby-httpclient (2.7.1-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Update 0001-Fix-port-allocation-in-tests.patch and
+    0003-Try-to-wait-until-socket-is-free.patch to include missing
+    instances of port 0 added in upstream 2.6.0.1-1~exp1 (Closes: #834686)
+
+ -- Paul Gevers <elbrus@debian.org>  Wed, 29 Mar 2017 20:38:15 +0200
+
+ruby-httpclient (2.7.1-1) unstable; urgency=medium
+
+  * New upstream release
+  * Refresh patches
+  * Update packaging with a new dh-make-ruby run
+    - bump Standards-Version to 3.9.7; no changes needed
+    - switch Vcs-* to https URLs
+    - debian/copyright: remove trailing spaces
+    - replace debian/ruby-test-files.yaml with debian/ruby-tests.rake
+    - cleanup debian/rules
+
+ -- Antonio Terceiro <terceiro@debian.org>  Mon, 29 Feb 2016 17:18:30 -0300
+
+ruby-httpclient (2.6.0.1-1) unstable; urgency=medium
+
+  * Reupload to upload
+
+ -- Pirate Praveen <praveen@debian.org>  Thu, 14 Jan 2016 11:43:29 +0530
+
+ruby-httpclient (2.6.0.1-1~exp2) experimental; urgency=medium
+
+  * Team upload.
+  * Make tests run (Closes: #810744)
+    - 0005-tweak-test-dep-change.patch: Tweak test to support latest version
+      of dependency.
+
+ -- Balasankar C <balasankarc@autistici.org>  Tue, 12 Jan 2016 11:46:12 +0530
+
+ruby-httpclient (2.6.0.1-1~exp1) experimental; urgency=medium
+
+  * Team upload.
+  * Imported Upstream version 2.6.0.1
+  * Run tests using yaml file instead of ruby one
+  * Drop patches:
+    - 0001-Remove-Hash-element-order-dependency.patch: no more ruby 1.8.7
+    - 0003-fix-ssl-config.patch: applied upstream
+  * Refresh patches:
+    - 0001-Fix-port-allocation-in-tests.patch
+  * Add patches:
+    - 0002-Disable-tests-for-NTLM.patch
+    - 0003-Try-to-wait-until-socket-is-free.patch
+    - 0004-Add-upstream-changelog.patch
+  * debian/control:
+    - Bump Standards-Version to 3.9.6 (no changes)
+    - Update Vcs-Browser
+    - Add Testsuite entry
+    - Drop no more required Replaces/Breaks/Provides
+    - Update Build-Depends and Depends, depend on ruby-http-cookie
+  * Update copyright data
+  * Set debhelper compatibility level to 9
+  * Add 'dowload' method to httpclient manpage
+  * Add manpage for jsonclient
+
+ -- Hleb Valoshka <375gnu@gmail.com>  Mon, 17 Aug 2015 16:37:17 +0300
+
+ruby-httpclient (2.3.3-3.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix default SSL configuration (Closes: #768673)
+      The patch 0003-fix-ssl-config.patch extracted from upstream code is
+      added to set the default SSL configuration to auto instead of SSLv3.
+
+ -- Tomasz Buchert <tomasz.buchert@inria.fr>  Wed, 26 Nov 2014 18:59:26 +0100
+
+ruby-httpclient (2.3.3-3) unstable; urgency=medium
+
+  * fix-port-allocation-in-tests.patch: fix port allocation for servers
+    instantiated in test suite, which weirdly enough only fail under sbuild
+    (Closes: #747736)
+
+ -- Antonio Terceiro <terceiro@debian.org>  Thu, 26 Jun 2014 22:02:27 -0300
+
+ruby-httpclient (2.3.3-2) unstable; urgency=low
+
+  * Dropped transitional packages now that Wheezy is stable
+  * Bump up standards-version 3.9.3→3.9.4 (no changes needed)
+
+ -- Gunnar Wolf <gwolf@debian.org>  Tue, 11 Jun 2013 09:39:05 -0500
+
+ruby-httpclient (2.3.3-1) unstable; urgency=low
+
+  * New upstream release
+  * Most of the 0001-Remove-Hash-element-order-dependency incorporated
+    upstream
+
+ -- Gunnar Wolf <gwolf@debian.org>  Mon, 10 Jun 2013 15:27:34 -0500
+
+ruby-httpclient (2.2.4-2) unstable; urgency=low
+
+  * debian/patches/0001-Remove-Hash-element-order-dependency.patch: cherry
+    picked from upstream to remove dependency of the tests upon the ordering
+    of hash keys (Closes: #674308)
+
+ -- Antonio Terceiro <terceiro@debian.org>  Sun, 08 Jul 2012 18:20:13 -0300
+
+ruby-httpclient (2.2.4-1) unstable; urgency=low
+
+  * New upstream version
+  * Transitional packages should be priority:extra
+  * Standards-version 3.9.2→3.9.3 (no changes)
+  * Corrected debian/copyright to properly comply with DEP5
+
+ -- Gunnar Wolf <gwolf@debian.org>  Thu, 08 Mar 2012 17:25:43 -0600
+
+ruby-httpclient (2.2.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Migrating to new Ruby policy and gem2deb, taking the opportunity to rename
+    the source package.
+
+ -- Antonio Terceiro <terceiro@debian.org>  Sun, 28 Aug 2011 12:30:45 -0700
+
+libhttp-access2-ruby (2.1.5.2-2) unstable; urgency=low
+
+  * Port the package to Ruby 1.9.1 (Closes: #569847)
+  * Added myself as an uploader
+  * Standards-version 3.8.3→3.8.4 (no changes needed)
+  * Replaced ambiguous «<» specifier on conflicts/provides with «<<» as
+    Lintian helpfully suggests (policy 7.1)
+
+ -- Gunnar Wolf <gwolf@debian.org>  Tue, 16 Feb 2010 16:26:46 -0600
+
+libhttp-access2-ruby (2.1.5.2-1) unstable; urgency=low
+
+  * adopt package (Closes: #532928)
+  * New upstream release (Closes: #528470)
+  * add watch file
+  * use cdbs
+  * rename binary packages to httpclient, leaving http-access2
+    transistional packages
+  * add a ruby 1.9 package (Closes: #528469)
+  * remove the patch, I don't think it's needed anymore..
+  * remove the README.Debian, it's not very useful
+  * improve copyright file
+  * add misc:depends
+  * update section to ruby
+  * Debian Policy 3.8.3
+  * add Homepage field
+  * add DMUA field
+
+ -- Ryan Niebur <ryanryan52@gmail.com>  Thu, 03 Sep 2009 01:36:06 -0700
+
+libhttp-access2-ruby (2.0.6-3) unstable; urgency=low
+
+  * lib/http-access2.rb: apply patches
+    http://dev.ctor.org/http-access2/changeset/128
+    http://dev.ctor.org/http-access2/changeset/129
+    closes: Bug#391530
+
+ -- Fumitoshi UKAI <ukai@debian.or.jp>  Mon,  6 Nov 2006 01:26:19 +0900
+
+libhttp-access2-ruby (2.0.6-2) unstable; urgency=low
+
+  * debian/control: recommends: libopenssl-ruby1.8
+    closes: Bug#396014
+  * lib/http-access2.rb: support Proxy authentication.
+    apply patch http://dev.ctor.org/http-access2/ticket/6
+    closes: Bug#391530
+  * debian/docs: install README.txt
+    debian/README.Debian: add some references
+    closes: Bug#391843
+
+ -- Fumitoshi UKAI <ukai@debian.or.jp>  Mon, 30 Oct 2006 00:43:22 +0900
+
+libhttp-access2-ruby (2.0.6-1) unstable; urgency=low
+
+  * New upstream release
+  * stop building ruby1.6 module
+    closes: Bug#366585
+  * detailed description. closes: Bug#209745
+
+ -- Fumitoshi UKAI <ukai@debian.or.jp>  Fri, 12 May 2006 01:25:37 +0900
+
+libhttp-access2-ruby (2.0.4-1) unstable; urgency=medium
+
+  * New upstream release
+  * required by ruby1.8's soap4r in sarge. closes: Bug#268732
+
+ -- Fumitoshi UKAI <ukai@debian.or.jp>  Sun, 29 Aug 2004 08:22:05 +0900
+
+libhttp-access2-ruby (0.0.J-2) unstable; urgency=low
+
+  * copy Ruby's license from ruby source.
+
+ -- Fumitoshi UKAI <ukai@debian.or.jp>  Tue, 16 Sep 2003 13:06:13 +0900
+
+libhttp-access2-ruby (0.0.J-1) unstable; urgency=low
+
+  * New upstream release
+  * build for both ruby1.6 and ruby1.8
+
+ -- Fumitoshi UKAI <ukai@debian.or.jp>  Mon,  8 Sep 2003 02:46:36 +0900
+
+libhttp-access2-ruby (0.0.F-1) unstable; urgency=low
+
+  * Initial Release. closes: Bug#153897
+
+ -- Fumitoshi UKAI <ukai@debian.or.jp>  Wed, 24 Jul 2002 00:45:22 +0900
+
+libhttp-access2-ruby (0.0.F-0) experimental; urgency=low
+
+  * Initial Release.
+
+ -- Fumitoshi UKAI <ukai@debian.or.jp>  Fri, 12 Jul 2002 13:24:05 +0900

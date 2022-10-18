@@ -1,0 +1,21 @@
+Description: Tweak tests to support latest version of dependency
+ One of the test makes sure that SSLv3 is not supported by expecting an 
+ SSLError to be raised. But in latest versions of openssl, an ArgumentError 
+ is raised in such situations. Patched the test to use that instead.
+Author: Balasankar C <balasankarc@autistici.org>
+Last-Update: 2016-01-12
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/test/test_ssl.rb
++++ b/test/test_ssl.rb
+@@ -247,8 +247,8 @@
+ 
+   def test_no_sslv3
+     teardown_server
+-    setup_server_with_ssl_version(:SSLv3)
+-    assert_raise(OpenSSL::SSL::SSLError) do
++    assert_raise(ArgumentError) do
++      setup_server_with_ssl_version(:SSLv3)
+       @client.ssl_config.verify_mode = nil
+       @client.get("https://localhost:#{serverport}/hello")
+     end

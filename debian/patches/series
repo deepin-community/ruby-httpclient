@@ -1,0 +1,8 @@
+0001-Fix-port-allocation-in-tests.patch
+0002-Disable-tests-for-NTLM.patch
+0003-Try-to-wait-until-socket-is-free.patch
+0004-Add-upstream-changelog.patch
+0005-tweak-test-dep-change.patch
+disable-test-proxy-ssl.patch
+disable_tests_related_to_http_proxy.patch
+0008-Use-system-CA-certificate-store.patch
